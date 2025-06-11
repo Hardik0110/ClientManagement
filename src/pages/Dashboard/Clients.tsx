@@ -34,7 +34,7 @@ const Clients = () => {
           <h1 className="text-white text-3xl font-bold mb-8">Clients</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[...Array(8)].map((_, index) => (
-              <div key={index} className="bg-white/10 rounded-2xl p-6 animate-pulse">
+              <div key={index} className="bg-black/10 rounded-2xl p-6 animate-pulse">
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-white/20 rounded-full mr-3"></div>
                   <div className="space-y-2 flex-1">

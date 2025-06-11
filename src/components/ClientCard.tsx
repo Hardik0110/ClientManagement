@@ -1,5 +1,3 @@
-
-
 export interface Client {
     id: string;
     fullName: string;
@@ -15,9 +13,7 @@ export interface Client {
   }
 
 const ClientCard = ({ client }: { client: Client }) => (
-    <div className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:border-gray-200 transform hover:-translate-y-2 hover:scale-[1.02]">
-      {/* Header with gradient background */}
-      <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-t-2xl"></div>
+    <div className="group relative bg-black rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:border-gray-200 transform hover:-translate-y-2 hover:scale-[1.02]">
       
       {/* Avatar/Initial Circle */}
       <div className="flex items-center mb-4">
@@ -25,16 +21,16 @@ const ClientCard = ({ client }: { client: Client }) => (
           {client.fullName.split(' ').map(name => name[0]).join('').slice(0, 2).toUpperCase()}
         </div>
         <div>
-          <h3 className="font-bold text-xl text-gray-800 group-hover:text-gray-900 transition-colors">
+          <h3 className="font-bold text-xl text-white group-hover:text-blue-500 transition-colors">
             {client.fullName}
           </h3>
-          <p className="text-sm text-gray-500 font-medium">{client.company}</p>
+          <p className="text-sm text-gray-300 font-medium">{client.company}</p>
         </div>
       </div>
   
       {/* Contact Information */}
       <div className="space-y-3">
-        <div className="flex items-center text-gray-700 hover:text-blue-600 transition-colors group/item">
+        <div className="flex items-center text-gray-400 hover:text-blue-600 transition-colors group/item">
           <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center mr-3 group-hover/item:bg-blue-100 transition-colors">
             <span className="text-blue-600">📧</span>
           </div>
@@ -44,7 +40,7 @@ const ClientCard = ({ client }: { client: Client }) => (
           </div>
         </div>
   
-        <div className="flex items-center text-gray-700 hover:text-green-600 transition-colors group/item">
+        <div className="flex items-center text-gray-400 hover:text-green-600 transition-colors group/item">
           <div className="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center mr-3 group-hover/item:bg-green-100 transition-colors">
             <span className="text-green-600">📱</span>
           </div>
@@ -54,7 +50,7 @@ const ClientCard = ({ client }: { client: Client }) => (
           </div>
         </div>
   
-        <div className="flex items-center text-gray-700 hover:text-purple-600 transition-colors group/item">
+        <div className="flex items-center text-gray-400 hover:text-purple-600 transition-colors group/item">
           <div className="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center mr-3 group-hover/item:bg-purple-100 transition-colors">
             <span className="text-purple-600">🏠</span>
           </div>
@@ -76,7 +72,7 @@ const ClientCard = ({ client }: { client: Client }) => (
               <span className="text-yellow-600 text-xs">📝</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-gray-600 line-clamp-2">{client.notes}</p>
+              <p className="text-xs text-gray-400 line-clamp-2">{client.notes}</p>
             </div>
           </div>
         </div>
