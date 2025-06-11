@@ -11,7 +11,9 @@ const Header = ({ userName = "Hardik BHOii " }: HeaderProps) => {
 
   const navigationItems = [
     { name: 'Dashboard', path: '/' },
+    { name: 'Add Client', path: '/add-client'},
     { name: 'Clients', path: '/clients' },
+    { name: 'Add Project', path: '/add-project'},
     { name: 'Projects', path: '/projects' }
   ];
 
