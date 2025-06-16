@@ -5,7 +5,6 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBYbggFHnuykcfWj9tHyoa4sxcbEdFrf7Y",
   authDomain: "client-management-dashbo-bdbb8.firebaseapp.com",
