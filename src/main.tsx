@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { createRootRoute, createRoute, createRouter, RouterProvider, Outlet, Navigate, useNavigate } from '@tanstack/react-router';
+import { createRootRoute, createRoute, createRouter, RouterProvider, Outlet, Navigate } from '@tanstack/react-router';
 import { AuthProvider, useAuth } from './lib/context/authContext';
 import Login from './pages/Auth/Login';
 import Index from './pages/Dashboard/Index';
@@ -7,14 +7,48 @@ import AddClient from './pages/Dashboard/AddClient';
 import Clients from './pages/Dashboard/Clients';
 import Projects from './pages/Projects/Projects';
 import AddProject from './pages/Projects/AddProject';
+import Header from './components/Header';
 import './styles/index.css';
 
 // Authentication-protected route wrapper
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated } = useAuth();
+  const { user, loading } = useAuth();
 
-  if (!isAuthenticated) {
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-cyan-400 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-white text-lg">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
     return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;
+};
+
+// Authentication redirect wrapper for login page
+const AuthRedirect = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-cyan-400 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-white text-lg">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (user) {
+    return <Navigate to="/dashboard" />;
   }
 
   return <>{children}</>;
@@ -25,93 +59,150 @@ const rootRoute = createRootRoute({
   component: () => <div id="app"><Outlet /></div>,
 });
 
+// Root redirect route component
+const RootRedirect = () => {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-cyan-400 border-t-transparent mx-auto mb-4"></div>
+          <p className="text-white text-lg">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  return <Navigate to={user ? "/dashboard" : "/login"} />;
+};
+
+// Root redirect route
+const rootRedirectRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: RootRedirect,
+});
+
 // Login route
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/login',
-  component: Login,
+  component: () => (
+    <AuthRedirect>
+      <Login />
+    </AuthRedirect>
+  ),
 });
 
 // Dashboard layout route
 const layoutRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/',
+  path: '/dashboard',
   component: () => (
     <ProtectedRoute>
-      <div className="min-h-screen flex flex-col bg-slate-800">
-        <header className="bg-slate-900 shadow-lg p-4 flex justify-between items-center">
-          <h1 className="text-white text-xl">Dashboard</h1>
-          <LogoutButton />
-        </header>
-        <main className="flex-1 overflow-auto">
-          <Outlet />
-        </main>
+      <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900">
+        <div className="container mx-auto px-4 py-6 space-y-6">
+          <Header />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+        </div>
       </div>
     </ProtectedRoute>
   ),
 });
 
-// Logout button component
-const LogoutButton = () => {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate({ to: '/login' });
-  };
-
-  return (
-    <button
-      onClick={handleLogout}
-      className="bg-red-500 text-white px-4 py-2 rounded"
-    >
-      Logout
-    </button>
-  );
-};
-
-// Child routes under Dashboard
-const indexRoute = createRoute({
+// Dashboard index route
+const dashboardIndexRoute = createRoute({
   getParentRoute: () => layoutRoute,
-  path: '/dashboard',
+  path: '/',
   component: Index,
 });
 
+// Add client route
 const addClientRoute = createRoute({
-  getParentRoute: () => layoutRoute,
+  getParentRoute: () => rootRoute,
   path: '/add-client',
-  component: AddClient,
+  component: () => (
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900">
+        <div className="container mx-auto px-4 py-6 space-y-6">
+          <Header />
+          <main className="flex-1">
+            <AddClient />
+          </main>
+        </div>
+      </div>
+    </ProtectedRoute>
+  ),
 });
 
+// Clients route
 const clientsRoute = createRoute({
-  getParentRoute: () => layoutRoute,
+  getParentRoute: () => rootRoute,
   path: '/clients',
-  component: Clients,
+  component: () => (
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900">
+        <div className="container mx-auto px-4 py-6 space-y-6">
+          <Header />
+          <main className="flex-1">
+            <Clients />
+          </main>
+        </div>
+      </div>
+    </ProtectedRoute>
+  ),
 });
 
+// Projects route
 const projectsRoute = createRoute({
-  getParentRoute: () => layoutRoute,
+  getParentRoute: () => rootRoute,
   path: '/projects',
-  component: Projects,
+  component: () => (
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900">
+        <div className="container mx-auto px-4 py-6 space-y-6">
+          <Header />
+          <main className="flex-1">
+            <Projects />
+          </main>
+        </div>
+      </div>
+    </ProtectedRoute>
+  ),
 });
 
+// Add project route
 const addProjectRoute = createRoute({
-  getParentRoute: () => layoutRoute,
+  getParentRoute: () => rootRoute,
   path: '/add-project',
-  component: AddProject,
+  component: () => (
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900">
+        <div className="container mx-auto px-4 py-6 space-y-6">
+          <Header />
+          <main className="flex-1">
+            <AddProject />
+          </main>
+        </div>
+      </div>
+    </ProtectedRoute>
+  ),
 });
 
 // Build the route tree
 const routeTree = rootRoute.addChildren([
+  rootRedirectRoute,
   loginRoute,
   layoutRoute.addChildren([
-    indexRoute,
-    addClientRoute,
-    clientsRoute,
-    projectsRoute,
-    addProjectRoute,
+    dashboardIndexRoute,
   ]),
+  addClientRoute,
+  clientsRoute,
+  projectsRoute,
+  addProjectRoute,
 ]);
 
 const router = createRouter({ routeTree });

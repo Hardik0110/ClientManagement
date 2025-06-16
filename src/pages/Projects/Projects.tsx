@@ -175,7 +175,7 @@ const Projects = () => {
             ].map(({ key, label }) => (
               <button
                 key={key}
-                onClick={() => setFilter(key as any)}
+                onClick={() => setFilter(key as unknown as 'all' | 'planning' | 'in-progress' | 'review' | 'completed' | 'on-hold' | 'cancelled')}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === key
                     ? 'bg-white text-black'
@@ -192,7 +192,7 @@ const Projects = () => {
             <span className="text-gray-400 text-sm bg-black">Sort by:</span>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => setSortBy(e.target.value as 'date' | 'name' | 'budget' | 'priority')}
               className="bg-black text-white border  rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white"
             >
               <option value="date">Date Created</option>

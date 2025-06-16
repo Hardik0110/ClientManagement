@@ -159,7 +159,7 @@ const AddProject = () => {
                     }`}
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
+                    onChange={(e) => field.handleChange(e.target.value as "web-development")}
                     placeholder="Enter project name"
                   />
                   {field.state.meta.errors && field.state.meta.errors.length > 0 && (
@@ -258,7 +258,7 @@ const AddProject = () => {
                   <select
                     className="bg-black text-white border border-white/30 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white transition-colors"
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value as any)}
+                    onChange={(e) => field.handleChange(e.target.value as "web-development")}
                   >
                     {projectTypeOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -279,7 +279,7 @@ const AddProject = () => {
                   <select
                     className="bg-black text-white border border-white/30 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white transition-colors"
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value as any)}
+                    onChange={(e) => field.handleChange(e.target.value as "planning")}
                   >
                     {statusOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -300,7 +300,7 @@ const AddProject = () => {
                   <select
                     className="bg-black text-white border border-white/30 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-white transition-colors"
                     value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value as any)}
+                    onChange={(e) => field.handleChange(e.target.value as "medium")}
                   >
                     {priorityOptions.map((option) => (
                       <option key={option.value} value={option.value}>
