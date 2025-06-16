@@ -29,7 +29,7 @@ const Clients = () => {
 
   if (loading) {
     return (
-      <div className="bg-black min-h-screen p-6">
+      <div className="p-6">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-white text-3xl font-bold mb-8">Clients</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -62,7 +62,7 @@ const Clients = () => {
   }
 
   return (
-    <div className="bg-black h-100vh p-6">
+    <div className=" h-100vh p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

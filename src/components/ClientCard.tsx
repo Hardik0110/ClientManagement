@@ -13,7 +13,7 @@ export interface Client {
   }
 
 const ClientCard = ({ client }: { client: Client }) => (
-    <div className="group relative bg-black rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:border-gray-200 transform hover:-translate-y-2 hover:scale-[1.02]">
+    <div className="group relative  rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border border-gray-100 hover:border-gray-200 transform hover:-translate-y-2 hover:scale-[1.02]">
       
       {/* Avatar/Initial Circle */}
       <div className="flex items-center mb-4">

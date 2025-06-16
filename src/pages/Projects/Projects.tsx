@@ -45,9 +45,10 @@ const Projects = () => {
           return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         case 'budget':
           return b.budget - a.budget;
-        case 'priority':
+        case 'priority': {
           const priorityOrder = { urgent: 4, high: 3, medium: 2, low: 1 };
           return priorityOrder[b.priority] - priorityOrder[a.priority];
+        }
         default:
           return 0;
       }
@@ -75,7 +76,7 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <div className="bg-black min-h-screen p-6">
+      <div className="min-h-screen p-6">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-white text-3xl font-bold mb-8">Projects</h1>
 
@@ -127,7 +128,7 @@ const Projects = () => {
   }
 
   return (
-    <div className="bg-black min-h-screen p-6">
+    <div className="min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

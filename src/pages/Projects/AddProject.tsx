@@ -124,7 +124,7 @@ const AddProject = () => {
   };
 
   return (
-    <div className="bg-black text-white px-6 py-12">
+    <div className="text-white px-6 py-12">
       <div className="max-w-4xl mx-auto bg-white/10 border border-white/20 backdrop-blur rounded-xl p-8 shadow-xl">
         <h2 className="text-3xl font-bold mb-8 text-white">Add New Project</h2>
 
